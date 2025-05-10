@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Caretaker Dashboard | Zoo Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+  <div class="background-shapes">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+  </div>
+
+  <header>
+    <div class="header-content">
+      <div class="stats-container">
+        <!-- Time Card -->
+        <div class="stats-card time-card">
+          <div class="sparkle-overlay"></div>
+          <div class="stats-content">
+            <div class="icon-wrapper">
+              <i class="fas fa-clock pulse"></i>
+            </div>
+            <div class="stats-text">
+  <h3>Current Time</h3>
+  <p class="highlight-text" id="current-time"></p>
+</div>
+          </div>
+        </div>
+
+        <!-- User Card -->
+        <div class="stats-card user-card">
+          <div class="sparkle-overlay"></div>
+          <div class="stats-content">
+            <div class="icon-wrapper">
+              <i class="fas fa-user-circle bounce"></i>
+            </div>
+            <div class="stats-text">
+              <h3>Welcome</h3>
+              <p class="highlight-text">{{ user.username }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tasks Card -->
+        <div class="stats-card task-card">
+          <div class="sparkle-overlay"></div>
+          <div class="stats-content">
+            <div class="icon-wrapper">
+              <i class="fas fa-tasks swing"></i>
+            </div>
+            <div class="stats-text">
+              <h3>Active Tasks</h3>
+              <p class="highlight-text">{{ tasks|length }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="dashboard-container">
+      <section class="task-list">
+        {% if tasks %}
+          {% for task in tasks %}
+            <div class="task-card">
+              <div class="sparkle-overlay"></div>
+              <div class="card-content">
+                <div class="task-icon">
+                  {% if 'feed' in task.description|lower %}
+                    <i class="fas fa-utensils"></i>
+                  {% elif 'clean' in task.description|lower %}
+                    <i class="fas fa-broom"></i>
+                  {% elif 'check' in task.description|lower %}
+                    <i class="fas fa-clipboard-check"></i>
+                  {% else %}
+                    <i class="fas fa-tasks"></i>
+                  {% endif %}
+                </div>
+                <h3>{{ task.animal.name }}</h3>
+                <p class="task-description">{{ task.description|truncatechars:80 }}</p>
+                <div class="meta">
+                  <span class="status status-{{ task.status|lower }}">
+                    <i class="fas fa-circle"></i> {{ task.status|title }}
+                  </span>
+                  <span class="assigned-date">
+                    <i class="far fa-calendar-alt"></i> {{ task.date_assigned|date:"M d, Y" }}
+                  </span>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="action-button">
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="no-tasks">
+            <i class="fas fa-check-circle"></i>
+            <p>No tasks assigned for now. Great job!</p>
+          </div>
+        {% endif %}
+      </section>
+    </div>
+  </main>
+
+<script>
+  function updateTime() {
+    const options = {
+      timeZone: 'Asia/Karachi',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    };
+    const formatter = new Intl.DateTimeFormat('en-GB', options);
+    document.getElementById('current-time').textContent = formatter.format(new Date());
+  }
+
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>
