@@ -1,36 +1,58 @@
-# 🦁 Zoo Management System
+# 🦁 Zoo Management System (Django Web App)
 
-A Python-based Zoo Management System that allows administrators to manage animals, staff, and visitors efficiently.  
-The project demonstrates **Object-Oriented Programming (OOP)** principles such as classes, inheritance, and modular design.
+A full-stack **Django-based web application** for managing animals, staff, and visitors in a zoo.  
+This project demonstrates Django’s **Model-View-Template (MVT)** architecture, database handling, static file management, and makes use of the **Django Admin Panel** for backend administration.
 
 ---
 
-## 📌 Features
-- ➕ **Animal Management**: Add, update, search, and remove animal records.
-- 👩‍💼 **Staff Management**: Assign staff members to animals or facilities.
-- 🎟️ **Visitor Management**: Track visitors, generate tickets, and manage bookings.
-- 📊 **Reports**: Summarize animals, staff, and visitor statistics.
+## ✨ Features
+- 🐅 **Animal Management**: Add, update, and delete animal records  
+- 👩‍💼 **Staff Management**: Manage staff profiles, roles, and responsibilities  
+- 🎟️ **Visitor Management**: Track visitors, ticket bookings, and activities  
+- 📊 **Reports**: Generate insights about animals, staff, and visitors  
+- 🎨 **Frontend**: Styled pages using HTML, CSS, and JavaScript  
+- 🔑 **Admin Panel**: Fully functional Django **built-in admin dashboard** for easy database management  
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-- Python 3.8 or later
+### ✅ Prerequisites
+Make sure you have the following installed:
+- Python 3.8+
 - pip (Python package manager)
+- virtualenv (recommended)
+- PostgreSQL 
 
-### Installation
-Clone the repository:
-```bash
-git clone https://github.com/MuskanHaryah/Zoo-Management-.git
-cd Zoo-Management-
+---
 
+### 🔧 Installation & Setup
 
-Zoo-Management-/
-│── main.py            # Entry point, runs the program
-│── zoo.py             # Core zoo logic and menu system
-│── animals.py         # Animal-related classes and functions
-│── staff.py           # Staff management classes
-│── visitors.py        # Visitor and ticket management
-│── README.md          # Project documentation (goes in root)
-│── requirements.txt   # Dependencies list (goes in root)
+1. **Clone the repository**  
+   `git clone https://github.com/MuskanHaryah/Zoo-Management-.git`  
+   `cd Zoo-Management-`
+
+2. **Create & activate virtual environment**  
+   - Windows:  
+     `python -m venv venv`  
+     `venv\Scripts\activate`  
+   - Linux/Mac:  
+     `python -m venv venv`  
+     `source venv/bin/activate`
+
+3. **Install dependencies**  
+   `pip install -r requirements.txt`
+
+4. **Apply migrations**  
+   `python manage.py migrate`
+
+5. **Create superuser (for Django Admin access)**  
+   `python manage.py createsuperuser`
+
+6. **Run development server**  
+   `python manage.py runserver`
+
+7. **Open in browser**  
+   - Main site: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)  
+   - Admin panel: [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/) 
+   
