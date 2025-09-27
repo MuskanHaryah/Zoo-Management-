@@ -1,0 +1,2293 @@
+/* Main Styles for Mulan Zoofari Website */
+/* Last updated: 2025-05-11 */
+
+:root {
+  /* Color variables */
+  --primary-color: #1e4422;
+  --primary-light: #2e6633;
+  --primary-dark: #0f2211;
+  --secondary-color: #ff9800;
+  --secondary-light: #ffb74d;
+  --secondary-dark: #f57c00;
+  --accent-color: #8bc34a;
+  --text-dark: #333333;
+  --text-light: #666666;
+  --light-text: #ffffff;
+  --card-bg: #ffffff;
+  --section-bg-light: #f5f9f0;
+  --section-bg-dark: #e8f1df;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  background-color: #f9f9f9;
+}
+
+/* Background elements */
+.background-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.animal, .tree, .cloud {
+  position: absolute;
+  opacity: 0.05;
+}
+
+.animal-elephant {
+  bottom: 20%;
+  left: 5%;
+  width: 150px;
+  height: 100px;
+  background: url('../images/elephant-silhouette.png') no-repeat;
+  background-size: contain;
+}
+
+.animal-giraffe {
+  bottom: 15%;
+  right: 10%;
+  width: 100px;
+  height: 180px;
+  background: url('../images/giraffe-silhouette.png') no-repeat;
+  background-size: contain;
+}
+
+.tree {
+  background: url('../images/tree-silhouette.png') no-repeat;
+  background-size: contain;
+}
+
+.tree1 {
+  bottom: 0;
+  left: 15%;
+  width: 200px;
+  height: 250px;
+}
+
+.tree2 {
+  bottom: 0;
+  right: 20%;
+  width: 180px;
+  height: 220px;
+  transform: scaleX(-1);
+}
+
+.cloud {
+  background: #f9f9f9;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.cloud1 {
+  top: 20%;
+  left: 10%;
+  width: 300px;
+  height: 100px;
+  animation: float 100s linear infinite;
+}
+
+.cloud2 {
+  top: 10%;
+  right: 20%;
+  width: 200px;
+  height: 80px;
+  animation: float 120s linear infinite reverse;
+}
+
+@keyframes float {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(100vw); }
+  100% { transform: translateX(0); }
+}
+
+/* General styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--primary-dark);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+  background: var(--primary-color);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+/* Section styles */
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-header h2:after {
+  content: '';
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: var(--accent-color);
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+.section-header p {
+  color: var(--text-light);
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+/* Navigation */
+.main-nav {
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.main-nav.scrolled {
+  background: var(--primary-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+
+.logo-container img {
+  height: 60px;
+  transition: all 0.3s ease;
+}
+
+.main-nav.scrolled .logo-container img {
+  height: 50px;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--light-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 30px;
+}
+
+.nav-link {
+  color: var(--light-text);
+  font-weight: 500;
+  position: relative;
+  padding: 5px 0;
+}
+
+.nav-link:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--secondary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover:after,
+.nav-link.active:after {
+  width: 100%;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--light-text);
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  height: 100vh;
+  background-image: url('../images/zoo-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  color: var(--light-text);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(30, 68, 34, 0.8), rgba(15, 34, 17, 0.9));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 25px;
+  color: var(--light-text);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Featured cards */
+.featured-section {
+  padding: 100px 0;
+  background: var(--section-bg-light);
+}
+
+.featured-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.featured-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+
+.featured-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+.card-image {
+  height: 220px;
+  background-color: var(--primary-light);
+  position: relative;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--secondary-color);
+  color: var(--light-text);
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.card-content {
+  padding: 25px;
+}
+
+.card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.card-content p {
+  color: var(--text-light);
+  margin-bottom: 15px;
+}
+
+.card-content a {
+  display: inline-block;
+  color: var(--primary-color);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.card-content a i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.card-content a:hover i {
+  transform: translateX(5px);
+}
+
+/* Animals section */
+.animals-section {
+  padding: 100px 0;
+  background: var(--section-bg-dark);
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  gap: 15px;
+}
+
+.filter-button {
+  background: var(--primary-color);
+  color: var(--light-text);
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-button.active, 
+.filter-button:hover {
+  background: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+.animals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.animal-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.animal-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+.animal-image {
+  height: 200px;
+  position: relative;
+}
+
+.animal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.animal-type {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--accent-color);
+  color: var(--light-text);
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.animal-info {
+  padding: 25px;
+}
+
+.animal-info h3 {
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+}
+
+.animal-scientific-name {
+  color: var(--text-light);
+  font-style: italic;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.animal-origin {
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.animal-origin i {
+  color: var(--accent-color);
+  margin-right: 5px;
+}
+
+.animal-facts {
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+.load-more {
+  display: block;
+  margin: 0 auto;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.load-more:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+/* Animal modal */
+.animal-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.animal-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.animal-modal-content {
+  background: #fff;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.animal-modal-header {
+  padding: 25px 25px 15px;
+}
+
+.animal-modal-header h2 {
+  margin-bottom: 5px;
+}
+
+.animal-modal-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.animal-modal-image {
+  flex: 1 1 300px;
+  min-height: 300px;
+}
+
+.animal-modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.animal-modal-info {
+  flex: 1 1 300px;
+  padding: 25px;
+}
+
+.info-item {
+  margin-bottom: 15px;
+}
+
+.info-item strong {
+  color: var(--primary-dark);
+}
+
+.conservation-status {
+  margin-top: 25px;
+}
+
+.status-indicator {
+  display: inline-block;
+  padding: 5px 15px;
+  background: #ff9800;
+  color: #fff;
+  border-radius: 30px;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+.animal-modal-footer {
+  padding: 15px 25px 25px;
+  text-align: center;
+}
+
+/* Tickets section */
+.tickets-section {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.ticket-booking {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--section-bg-light);
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 15px 50px var(--shadow-color);
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: var(--primary-dark);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.ticket-types {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ticket-type {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.ticket-info h4 {
+  margin-bottom: 5px;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.ticket-description {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.ticket-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.ticket-quantity-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-quantity-control label {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.ticket-quantity {
+  width: 80px;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.ticket-quantity:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.booking-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 2px dashed #ddd;
+  margin-top: 20px;
+}
+
+.total-section {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.booking-confirmation {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.confirmation-icon {
+  font-size: 5rem;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+}
+
+.booking-confirmation h3 {
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.booking-reference {
+  background: var(--primary-light);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 20px 0;
+  font-family: monospace;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+/* Events section */
+.events-section {
+  padding: 100px 0;
+  background: var(--section-bg-dark);
+}
+
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.event-card {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--shadow-color);
+  display: flex;
+}
+
+.event-date {
+  background: var(--primary-color);
+  color: #fff;
+  width: 100px;
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.event-month {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.event-day {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 5px;
+}
+
+.event-info {
+  padding: 25px;
+  position: relative;
+  flex: 1;
+}
+
+.event-info h3 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.event-info p {
+  color: var(--text-light);
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.event-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+}
+
+.event-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--secondary-color);
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.featured-event .event-date {
+  background: var(--secondary-color);
+}
+
+.countdown {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--primary-light);
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  min-width: 60px;
+}
+
+.countdown-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 0.7rem;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+.event-happening-now {
+  background: var(--secondary-color);
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 30px;
+  display: inline-block;
+  font-weight: 500;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Map section */
+.map-section {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.map-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.interactive-map {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background: var(--section-bg-light);
+  border-radius: 15px;
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+.map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: transparent;
+  transition: all 0.3s ease;
+}
+
+.interactive-map:hover .map-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.map-point {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.map-point-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.2rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.map-point:hover .map-point-icon {
+  transform: scale(1.1);
+  background: var(--secondary-color);
+}
+
+.map-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.map-tooltip:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+.map-tooltip h4 {
+  margin-bottom: 5px;
+  color: var(--primary-dark);
+}
+
+.map-tooltip p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.map-instructions {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.map-instruction {
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+  font-size: 0.95rem;
+}
+
+.map-instruction i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.location-info-popup {
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  width: 300px;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.location-info-popup.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.info-popup-header {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-popup-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-popup {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.info-popup-content {
+  padding: 15px;
+}
+
+.info-popup-content p {
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  color: var(--text-light);
+}
+
+/* Newsletter section */
+.newsletter-section {
+  padding: 100px 0;
+  background-image: url('../images/paw-pattern.png'), linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+  background-blend-mode: overlay;
+  color: #fff;
+}
+
+.newsletter-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.newsletter-content h2 {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.newsletter-content p {
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.newsletter-form {
+  display: flex;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 15px 25px;
+  border: none;
+  font-size: 1rem;
+}
+
+.newsletter-form input:focus {
+  outline: none;
+}
+
+.newsletter-form button {
+  padding: 15px 30px;
+  border: none;
+  background: var(--secondary-color);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  background: var(--secondary-dark);
+}
+
+/* Footer */
+footer {
+  background: var(--primary-dark);
+  color: #fff;
+  padding: 80px 0 40px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.footer-column h3 {
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 1.3rem;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column ul li {
+  margin-bottom: 15px;
+}
+
+.footer-column ul li a {
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: var(--accent-color);
+  padding-left: 5px;
+}
+
+.footer-logo img {
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+address {
+  font-style: normal;
+}
+
+address p {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+address p i {
+  margin-right: 15px;
+  color: var(--accent-color);
+  font-size: 1.2rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-links a {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--accent-color);
+  transform: translateY(-5px);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 30px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-bottom-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--accent-color);
+}
+
+/* Back to top button */
+#back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  border: none;
+  font-size: 1.2rem;
+}
+
+#back-to-top.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#back-to-top:hover {
+  background: var(--primary-dark);
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .section-header h2 {
+    font-size: 2.2rem;
+  }
+  
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+  
+  .events-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .interactive-map {
+    height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--primary-dark);
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: -1;
+  }
+  
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    z-index: 100;
+  }
+  
+  .nav-links li {
+    margin: 0;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+  }
+  
+  .event-card {
+    flex-direction: column;
+  }
+  
+  .event-date {
+    width: 100%;
+    min-width: 100%;
+    padding: 15px 0;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .interactive-map {
+    height: 400px;
+  }
+  
+  .ticket-booking {
+    padding: 30px 20px;
+  }
+  
+  .map-instructions {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .featured-cards,
+  .animals-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .events-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .interactive-map {
+    height: 350px;
+  }
+  
+  .map-point-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+    border-radius: 15px;
+  }
+  
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+    border-radius: 0;
+  }
+  
+  .ticket-type {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .ticket-quantity-control {
+    margin-top: 15px;
+    align-items: flex-start;
+  }
+  
+  .booking-summary {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+  }
+}
+
+
+/* ENHANCED WELCOME TEXT & LOGO STYLES */
+
+/* Enhanced Header with Background */
+.enhanced-header {
+  background-color: rgba(30, 68, 34, 0.9);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Mega Logo in Header */
+.mega-logo img {
+  height: 140px !important;
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+.main-nav.scrolled .mega-logo img {
+  height: 100px !important;
+}
+
+/* Adjust header padding for larger logo */
+.nav-container {
+  padding: 10px 20px !important;
+  display: flex;
+  align-items: center;
+}
+
+/* Container for welcome text with better positioning */
+.welcome-text-container {
+  position: relative;
+  z-index: 5;
+  padding: 30px;
+  text-align: center;
+  backdrop-filter: blur(2px);
+}
+
+/* Smaller sized welcome text with enhanced visibility */
+.mega-welcome {
+  font-size: 3.2rem !important; /* Made smaller as requested */
+  font-weight: 700 !important;
+  text-shadow: 2px 2px 0 var(--primary-dark),
+               3px 3px 8px rgba(0, 0, 0, 0.8) !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 25px !important;
+  color: #ffffff !important;
+  transition: all 0.5s ease;
+  line-height: 1.2;
+}
+
+/* Enhanced tagline with the green color from the image */
+.mega-tagline {
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  color: #a4d65e !important; /* Matching the lime/yellowish green in the image */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7) !important;
+  margin-bottom: 30px !important;
+}
+
+/* Hero section enhancements */
+.hero {
+  position: relative;
+  height: 100vh;
+  background-color: #1e4422; /* Dark green background as in image */
+  background-image: url('../images/zoo-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 80px;
+}
+
+/* Improve hero overlay for better text contrast */
+.hero-overlay {
+  background: linear-gradient(to bottom, 
+              rgba(23, 48, 24, 0.7), 
+              rgba(26, 57, 27, 0.8)) !important;
+}
+
+/* Additional CSS to adjust card content spacing after removing links */
+.card-content {
+  padding: 25px;
+}
+
+.card-content p {
+  color: var(--text-light);
+  margin-bottom: 0; /* Changed from 15px to 0 since we removed the links */
+}
+
+/* Update the featured card hover effect to still look good without links */
+.featured-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px var(--shadow-color);
+  cursor: pointer; /* Add pointer cursor so users know cards are clickable even without explicit links */
+}
+
+/* Animal Cards Section */
+.animal-showcase-section {
+  background-color: #1e4422; /* Changed to dark green background */
+  padding: 80px 0;
+  position: relative;
+}
+
+/* White text for section header */
+.white-text {
+  color: #ffffff !important;
+}
+
+/* Parrot green text for animal section tagline */
+.parrot-text {
+  color: #a4d65e !important;
+}
+
+.animal-featured-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.animal-featured-cards .featured-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.animal-featured-cards .featured-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.animal-featured-cards .card-image {
+  height: 220px;
+  background-color: var(--primary-light);
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.animal-featured-cards .card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.animal-featured-cards .card-tag {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--secondary-color);
+  color: var(--light-text);
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.animal-featured-cards .card-content {
+  padding: 25px;
+}
+
+.animal-featured-cards .card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--primary-dark);
+}
+
+.animal-featured-cards .card-content p {
+  color: var(--text-light);
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* Custom tag colors for different animal status */
+.animal-featured-cards .card-tag.endangered {
+  background-color: #f44336;
+}
+
+.animal-featured-cards .card-tag.vulnerable {
+  background-color: #ff9800;
+}
+
+.animal-featured-cards .card-tag.rare {
+  background-color: #9c27b0;
+}
+
+.animal-featured-cards .card-tag.popular {
+  background-color: #2196f3;
+}
+
+.animal-featured-cards .card-tag.family {
+  background-color: #4caf50;
+}
+
+.animal-featured-cards .card-tag.intelligent {
+  background-color: #607d8b;
+}
+
+/* Adjust spacing in animals section */
+.animals-section {
+  padding-top: 60px;
+}
+
+.animals-grid {
+  margin-top: 40px; /* Add more space at the top since filter buttons are gone */
+  margin-bottom: 40px; /* Add more space at the bottom since load more button is gone */
+}
+
+/* Increase the maximum height of the grid to show more animals at once */
+.animals-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Adjust spacing after removing map instructions */
+.map-container {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.interactive-map {
+  margin-bottom: 0; /* Removed bottom margin since instructions are gone */
+  position: relative;
+}
+
+.map-image {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Make the map overlay text clearer without instructions */
+.map-overlay::before {
+  content: "Click or hover to explore";
+  font-size: 1.7rem;
+}
+
+/* Zoo Hours styling */
+.zoo-hours {
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 12px;
+  min-width: 280px;
+}
+
+.zoo-hours h3 {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.hours-list {
+  color: #fff;
+}
+
+.hours-item {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hours-item .day {
+  font-weight: 500;
+  padding-right: 20px;
+}
+
+.hours-item .time {
+  color: #f0f0f0;
+}
+
+.hours-item.special-note {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.hours-item .note {
+  color: var(--accent-color);
+  font-size: 0.9rem;
+}
+
+.hours-item .note i {
+  margin-right: 8px;
+}
+
+/* Footer content adjustments - removed logo and added more spacing */
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  gap: 30px;
+}
+
+/* Adjusted footer bottom to be centered without links */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+/* Added more space to the address section since logo is removed */
+.footer-column address {
+  margin-top: 20px;
+}
+
+/* Updated Events Section for Vertical Layout */
+.events-container.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.events-container.vertical .event-card {
+  display: flex;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.events-container.vertical .event-date {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 120px;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.events-container.vertical .event-month {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.events-container.vertical .event-day {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.events-container.vertical .event-info {
+  flex: 1;
+  padding: 25px;
+  position: relative;
+}
+
+.events-container.vertical .event-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: var(--primary-dark);
+}
+
+.events-container.vertical .event-info p {
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.events-container.vertical .event-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.events-container.vertical .event-details span {
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.events-container.vertical .event-details i {
+  margin-right: 8px;
+}
+
+.events-container.vertical .event-tag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ff9800;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-weight: 500;
+}
+
+.events-container.vertical .countdown {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.events-container.vertical .countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1e4422;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-width: 60px;
+}
+
+.events-container.vertical .countdown-number {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.events-container.vertical .countdown-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+/* Green background for certain events */
+.green-bg {
+  background: #1e4422;
+}
+
+/* Orange background for certain events */
+.orange-bg {
+  background: #ff9800;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .mega-welcome {
+    font-size: 3rem !important;
+  }
+  
+  .mega-tagline {
+    font-size: 1.3rem !important;
+  }
+  
+  .mega-logo img {
+    height: 120px !important;
+  }
+  
+  .main-nav.scrolled .mega-logo img {
+    height: 90px !important;
+  }
+
+  .animal-featured-cards {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .events-container.vertical .event-info {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mega-welcome {
+    font-size: 2.6rem !important;
+  }
+  
+  .mega-tagline {
+    font-size: 1.2rem !important;
+  }
+  
+  .mega-logo img {
+    height: 100px !important;
+  }
+  
+  .main-nav.scrolled .mega-logo img {
+    height: 80px !important;
+  }
+  
+  .welcome-text-container {
+    padding: 25px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .hours-item {
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .hours-item .day {
+    margin-bottom: 5px;
+    padding-right: 0;
+  }
+  
+  .zoo-hours {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .animal-showcase-section {
+    padding: 60px 0;
+  }
+  
+  .events-container.vertical .event-card {
+    flex-direction: column;
+  }
+  
+  .events-container.vertical .event-date {
+    width: 100%;
+    padding: 15px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .events-container.vertical .event-tag {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .mega-welcome {
+    font-size: 2.2rem !important;
+  }
+  
+  .mega-tagline {
+    font-size: 1.1rem !important;
+  }
+  
+  .mega-logo img {
+    height: 90px !important;
+  }
+  
+  .main-nav.scrolled .mega-logo img {
+    height: 70px !important;
+  }
+  
+  .welcome-text-container {
+    padding: 15px;
+  }
+
+  .animal-featured-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .events-container.vertical .event-details {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .events-container.vertical .countdown {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+/* Enhanced Header with White Background for Logo Visibility */
+.enhanced-header {
+  background-color: #ffffff; /* White background for maximum contrast */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  border-bottom: 4px solid #a4d65e; /* Parrot green border at bottom */
+}
+
+/* Style navigation links for white background */
+.enhanced-header .nav-link {
+  color: #1e4422 !important; /* Dark green text */
+  font-weight: 600 !important;
+}
+
+.enhanced-header .nav-link:hover,
+.enhanced-header .nav-link.active {
+  color: #a4d65e !important; /* Parrot green on hover/active */
+}
+
+.enhanced-header .nav-link:after {
+  background: #a4d65e; /* Parrot green underline */
+}
+
+.enhanced-header .mobile-menu-toggle {
+  color: #1e4422; /* Dark green */
+}
+
+/* Enhance logo visibility */
+.mega-logo img {
+  height: 140px !important;
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(30, 68, 34, 0.3)); /* Subtle shadow */
+}
+
+/* Decorative paw prints for sections with white background */
+.featured-section,
+.tickets-section,
+.map-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.featured-section::before,
+.tickets-section::before,
+.map-section::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url('../images/paw-pattern.png'); /* Assuming this exists */
+  background-size: 300px auto;
+  background-repeat: repeat;
+  opacity: 0.07; /* Very subtle */
+  pointer-events: none;
+  z-index: 0;
+  filter: hue-rotate(70deg) saturate(1.5); /* Adjust to parrot green */
+}
+
+/* Ensure content appears above paw prints */
+.featured-section .container,
+.tickets-section .container,
+.map-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Custom paw pattern for white sections */
+.paw-pattern {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url('../images/paw-pattern.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  filter: hue-rotate(70deg) saturate(1.5); /* Adjust to parrot green */
+  pointer-events: none;
+}
+
+/* Add multiple paw patterns positioned randomly in white sections */
+.featured-section::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  right: 10%;
+  width: 60px;
+  height: 60px;
+  background-image: url('../images/paw-pattern.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  filter: hue-rotate(70deg) saturate(1.5);
+  transform: rotate(45deg);
+}
+
+.tickets-section::after {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 7%;
+  width: 50px;
+  height: 50px;
+  background-image: url('../images/paw-pattern.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  filter: hue-rotate(70deg) saturate(1.5);
+  transform: rotate(-20deg);
+}
+
+/* Custom paw trails for visual interest */
+.paw-trail {
+  position: absolute;
+  display: flex;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.paw-trail-1 {
+  top: 30%;
+  left: 5%;
+  transform: rotate(35deg) scale(0.8);
+}
+
+.paw-trail-2 {
+  bottom: 15%;
+  right: 8%;
+  transform: rotate(-15deg) scale(0.7);
+}
+
+.paw-print {
+  width: 30px;
+  height: 30px;
+  margin-right: 25px;
+  background-image: url('../images/paw-pattern.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  filter: hue-rotate(70deg) saturate(1.5); /* Adjust to parrot green */
+}
+
+/* Make logo white for visibility against the dark green background */
+.mega-logo img {
+  height: 140px !important;
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(0, 0, 0, 0.3)); /* This makes the logo white */
+}
+
+.main-nav.scrolled .mega-logo img {
+  height: 100px !important;
+}
+
+/* Set dark green background for header */
+.enhanced-header {
+  background-color: #1e4422 !important; /* Dark green background with important flag */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Keep the logo white with a subtle glow */
+.mega-logo img {
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) !important; /* Make logo white with subtle glow */
+  height: 120px !important;
+}
+
+/* Style navigation to match image exactly */
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  margin-left: 30px;
+}
+
+.nav-link {
+  color: #ffffff !important; /* White text */
+  font-weight: 500 !important;
+  font-size: 16px !important;
+  font-family: 'Poppins', sans-serif !important;
+  text-transform: none !important;
+  position: relative;
+  padding: 5px 0;
+}
+
+/* Style the active/home link with the gold underline */
+.nav-link.active {
+  color: #ffffff !important; /* Keep the text white */
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e2b73a !important; /* Gold/orange underline */
+}
+
+/* Style for hover effect */
+.nav-link:hover {
+  color: #e2b73a !important; /* Gold/orange on hover */
+}
+
+/* Mobile menu button */
+.mobile-menu-toggle {
+  color: #ffffff !important;
+}
+
+
+
+/* Fix the header background to be dark green */
+header, 
+.enhanced-header,
+.main-nav,
+.main-nav.scrolled {
+  background-color: #1e4422 !important; /* Dark green background with important flag */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the navigation links to be WHITE as requested */
+.nav-link {
+  color: #ffffff !important; /* White text color */
+  font-weight: 500 !important;
+  position: relative;
+  padding: 5px 0;
+}
+
+/* "Home" link in white */
+.nav-link.active {
+  color: #ffffff !important; /* White */
+}
+
+/* All other links in white */
+.nav-link:not(.active) {
+  color: #ffffff !important; /* White */
+}
+
+/* Style the active link with the gold underline */
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #e2b73a !important; /* Gold/orange underline */
+}
+
+/* Style for hover effect */
+.nav-link:hover {
+  color: #a4d65e !important; /* Light green on hover */
+}
+
+/* Keep the logo white with a subtle glow */
+.mega-logo img {
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.3)) !important; /* Make logo white with subtle glow */
+  height: 120px !important;
+}
+
+/* Mobile menu button */
+.mobile-menu-toggle {
+  color: #ffffff !important; /* White */
+}

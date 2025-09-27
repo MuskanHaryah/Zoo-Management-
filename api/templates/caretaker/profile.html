@@ -1,13 +1,15 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Caretaker Dashboard | Zoo Management</title>
+  {% load static %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
+
 <body>
   <div class="background-shapes">
     <div class="shape shape1"></div>
@@ -26,9 +28,9 @@
               <i class="fas fa-clock pulse"></i>
             </div>
             <div class="stats-text">
-  <h3>Current Time</h3>
-  <p class="highlight-text" id="current-time"></p>
-</div>
+              <h3>Current Time</h3>
+              <p class="highlight-text" id="current-time"></p>
+            </div>
           </div>
         </div>
 
@@ -55,10 +57,11 @@
             </div>
             <div class="stats-text">
               <h3>Active Tasks</h3>
-              <p class="highlight-text">{{ tasks|length }}</p>
+              <p class="highlight-text" id="activeTaskCount">{{ tasks|length }}</p>
             </div>
           </div>
         </div>
+        <!-- Remove the rejected tasks card from header -->
       </div>
     </div>
   </header>
@@ -67,67 +70,125 @@
     <div class="dashboard-container">
       <section class="task-list">
         {% if tasks %}
-          {% for task in tasks %}
-            <div class="task-card">
-              <div class="sparkle-overlay"></div>
-              <div class="card-content">
-                <div class="task-icon">
-                  {% if 'feed' in task.description|lower %}
-                    <i class="fas fa-utensils"></i>
-                  {% elif 'clean' in task.description|lower %}
-                    <i class="fas fa-broom"></i>
-                  {% elif 'check' in task.description|lower %}
-                    <i class="fas fa-clipboard-check"></i>
-                  {% else %}
-                    <i class="fas fa-tasks"></i>
-                  {% endif %}
-                </div>
-                <h3>{{ task.animal.name }}</h3>
-                <p class="task-description">{{ task.description|truncatechars:80 }}</p>
-                <div class="meta">
-                  <span class="status status-{{ task.status|lower }}">
-                    <i class="fas fa-circle"></i> {{ task.status|title }}
-                  </span>
-                  <span class="assigned-date">
-                    <i class="far fa-calendar-alt"></i> {{ task.date_assigned|date:"M d, Y" }}
-                  </span>
-                </div>
-              </div>
-              <div class="card-actions">
-                <button class="action-button">
-                  <i class="fas fa-arrow-right"></i>
-                </button>
-              </div>
+        {% for task in tasks %}
+        <div class="task-card" data-task-id="{{ task.id }}">
+          <div class="sparkle-overlay"></div>
+          <div class="card-content">
+            <div class="task-icon">
+              {% if 'feed' in task.description|lower %}
+              <i class="fas fa-utensils"></i>
+              {% elif 'clean' in task.description|lower %}
+              <i class="fas fa-broom"></i>
+              {% elif 'check' in task.description|lower %}
+              <i class="fas fa-clipboard-check"></i>
+              {% else %}
+              <i class="fas fa-tasks"></i>
+              {% endif %}
             </div>
-          {% endfor %}
-        {% else %}
-          <div class="no-tasks">
-            <i class="fas fa-check-circle"></i>
-            <p>No tasks assigned for now. Great job!</p>
+            <h3>{{ task.animal.name }}</h3>
+            <p class="task-description">{{ task.description|truncatechars:80 }}</p>
+            <div class="meta">
+              <span class="status status-{{ task.status|lower }}">
+                <i class="fas fa-circle"></i> {{ task.status|title }}
+              </span>
+              <span class="assigned-date">
+                <i class="far fa-calendar-alt"></i> {{ task.date_assigned|date:"M d, Y, h:i A" }}
+              </span>
+            </div>
           </div>
+          <div class="card-actions">
+            <button class="action-button view-task-btn">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="no-tasks">
+          <i class="fas fa-check-circle"></i>
+          <p>No tasks assigned for now. Great job!</p>
+        </div>
         {% endif %}
       </section>
     </div>
+
+   <!-- Add this right before the closing </main> tag -->
+<!-- Rejected Tasks Card -->
+<div class="stats-card rejected-card">
+  <div class="sparkle-overlay"></div>
+  <div class="stats-content">
+    <div class="icon-wrapper">
+      <i class="fas fa-exclamation-circle shake"></i>
+    </div>
+    <div class="stats-text">
+      <h3>Rejected Tasks</h3>
+      <button id="viewRejectedBtn" class="view-rejected-btn">View All</button>
+    </div>
+  </div>
+</div>
   </main>
 
-<script>
-  function updateTime() {
-    const options = {
-      timeZone: 'Asia/Karachi',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    };
-    const formatter = new Intl.DateTimeFormat('en-GB', options);
-    document.getElementById('current-time').textContent = formatter.format(new Date());
-  }
+  <!-- Task Details Popup -->
+  <div class="popup-overlay" id="taskPopup">
+    <div class="popup-container">
+      <div class="popup-close"><i class="fas fa-times"></i></div>
+      <div class="popup-header">
+        <h2 id="popup-animal-name"></h2>
+      </div>
+      <div class="popup-body">
+        <div class="task-detail">
+          <i class="fas fa-clipboard-list"></i>
+          <span class="label">Description:</span>
+          <span id="popup-description"></span>
+        </div>
+        <div class="task-detail">
+          <i class="fas fa-hourglass-half"></i>
+          <span class="label">Status:</span>
+          <span id="popup-status"></span>
+        </div>
+        <div class="task-detail">
+          <i class="fas fa-calendar-day"></i>
+          <span class="label">Assigned:</span>
+          <span id="popup-assigned" class="datetime-value"></span>
+        </div>
+        <div class="task-detail">
+          <i class="fas fa-calendar-check"></i>
+          <span class="label">Deadline:</span>
+          <span id="popup-deadline" class="datetime-value"></span>
+        </div>
+      </div>
+      <div class="popup-footer">
+        <button class="complete-task-btn" id="completeTaskBtn">Mark as Complete</button>
+      </div>
+    </div>
+  </div>
 
-  updateTime();
-  setInterval(updateTime, 1000);
-</script>
+ <!-- Rejected Tasks Popup -->
+<div class="popup-overlay" id="rejectedTasksPopup">
+  <div class="popup-container rejected-container">
+    <div class="popup-close"><i class="fas fa-times"></i></div>
+    <div class="popup-header">
+      <h2><i class="fas fa-exclamation-triangle"></i> Rejected Tasks</h2>
+    </div>
+    <div class="popup-body">
+      <div class="rejected-list" id="rejectedTasksList">
+        <!-- Tasks will be loaded here dynamically -->
+        <div class="loading-indicator">
+          <div class="spinner"></div>
+          <p>Loading rejected tasks...</p>
+        </div>
+      </div>
+      <div class="no-rejected-tasks" id="noRejectedTasks" style="display:none;">
+        <i class="fas fa-check-circle"></i>
+        <p>No rejected tasks found. Great job!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="{% static 'profile.js' %}"></script>
 
 </body>
+
 </html>

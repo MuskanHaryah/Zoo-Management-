@@ -32,7 +32,7 @@ class BookingAdmin(admin.ModelAdmin):
         return True  # Optional: Admin can still delete
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('caretaker', 'animal', 'status', 'date_assigned', 'submission_date')
+    list_display = ('caretaker', 'animal', 'status', 'date_assigned', 'submission_date','deadline')
     list_filter = ('status',)
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):

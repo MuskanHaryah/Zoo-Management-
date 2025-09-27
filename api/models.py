@@ -88,14 +88,28 @@ class Task(models.Model):
     caretaker = models.ForeignKey(CaretakerProfile, on_delete=models.SET_NULL, null=True)
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
     description = models.TextField()
-    date_assigned = models.DateField(auto_now_add=True)
-    submission_date = models.DateField(null=True, blank=True)
+    date_assigned = models.DateTimeField(auto_now_add=True)  # Changed to DateTimeField
+    deadline = models.DateTimeField(null=True, blank=True)  # Added deadline field
+    submission_date = models.DateTimeField(null=True, blank=True)  # Changed to DateTimeField
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     def __str__(self):
         return f"Task for {self.animal.name} by {self.caretaker.user.username}"
-
-
+    
+    def is_past_deadline(self):
+        """Check if the task is past its deadline"""
+        from django.utils import timezone
+        if self.deadline and timezone.now() > self.deadline:
+            return True
+        return False
+        
+    def check_and_update_expired_status(self):
+        """Check if task is past deadline and update status if needed"""
+        if self.is_past_deadline() and self.status.lower() == 'pending':
+            self.status = 'rejected'
+            self.save()
+            return True
+        return False
 
 
 

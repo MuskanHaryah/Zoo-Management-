@@ -1,0 +1,551 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mulan Zoofari - Visit Our Zoo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/visitor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/enhanced-styles.css' %}">
+    <style>
+        /* Override any emoji styles to ensure they don't appear in the welcome background */
+        .hero {
+            position: relative;
+        }
+        .hero .welcome-text-container {
+            background-color: rgba(30, 68, 34, 0.7);
+            border-radius: 8px;
+            padding: 20px 40px;
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        /* Hide any emoji elements that might be behind the welcome text */
+        .wildlife-element, .animated-wildlife, .leaf {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background elements -->
+    <div class="background-elements">
+        <!-- Animal silhouettes -->
+        <div class="animals">
+            <div class="animal animal-elephant"></div>
+            <div class="animal animal-giraffe"></div>
+            <div class="animal animal-monkey"></div>
+        </div>
+
+        <!-- Tree silhouettes -->
+        <div class="trees">
+            <div class="tree tree1"></div>
+            <div class="tree tree2"></div>
+            <div class="tree tree3"></div>
+        </div>
+
+        <!-- Cloud animations -->
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+        </div>
+    </div>
+
+    <header class="enhanced-header">
+        <nav class="main-nav">
+            <div class="container nav-container">
+                <div class="logo-container mega-logo">
+                    <a href="{% url 'landing_page' %}">
+                        <img src="{% static 'images/Mulan Zoofari-Picsart-BackgroundRemover.png' %}"
+                            alt="Mulan Zoofari Logo">
+                    </a>
+                </div>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="#animal-showcase" class="nav-link">Animals</a></li>
+                    <li><a href="#tickets" class="nav-link">Tickets</a></li>
+                    <li><a href="#events" class="nav-link">Events</a></li>
+                    <li><a href="#map" class="nav-link">Zoo Map</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Enhanced Welcome Message -->
+    <section id="home" class="hero">
+        <!-- Safari animals and animated elements removed to clean up the welcome background -->
+        <div class="safari-animals" style="display: none;">
+            <div class="safari-animal lion"></div>
+            <div class="safari-animal zebra"></div>
+            <div class="safari-animal elephant"></div>
+            <div class="safari-animal giraffe"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="welcome-text-container">
+                    <h1 class="mega-welcome">Welcome to Mulan Zoofari</h1>
+                    <p class="mega-tagline">Explore the wonders of wildlife in our world-class zoo</p>
+                </div>
+                <!-- Removed buttons as requested -->
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Featured Attractions</h2>
+                <p>Don't miss these exciting zoo experiences</p>
+            </div>
+            <div class="featured-cards">
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/safari-ride.png' %}">
+                        <div class="card-tag">Popular</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Safari Adventure</h3>
+                        <p>Experience our guided safari tour through African plains</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/feeding-time.png' %}">
+                        <div class="card-tag">Daily</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Feeding Times</h3>
+                        <p>Watch our animals during scheduled feeding sessions</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/kids-zone.png' %}">
+                        <div class="card-tag">Family</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Kids Adventure Zone</h3>
+                        <p>Fun activities and learning experiences for children</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add paw trails -->
+        <div class="paw-trail paw-trail-1">
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+        </div>
+        <div class="paw-trail paw-trail-2">
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+        </div>
+    </section>
+
+    <!-- Animal Cards Section -->
+    <section id="animal-showcase" class="animal-showcase-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="white-text">Featured Animals</h2>
+                <p class="parrot-text">Get to know our amazing animal residents</p>
+            </div>
+            <div class="featured-cards animal-featured-cards">
+                <!-- African Elephant Card -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/elephant.png' %}" alt="African Elephant">
+                        <div class="card-tag">Endangered</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>African Elephant</h3>
+                        <p>The largest land animal can consume up to 300 pounds of food per day</p>
+                    </div>
+                </div>
+
+                <!-- Bengal Tiger Card -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/tiger.png' %}" alt="Bengal Tiger">
+                        <div class="card-tag">Vulnerable</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Bengal Tiger</h3>
+                        <p>Tigers have striped skin, not just striped fur, and each pattern is unique</p>
+                    </div>
+                </div>
+
+                <!-- Lion Card -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/lion.png' %}" alt="Lion">
+                        <div class="card-tag">Popular</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>African Lion</h3>
+                        <p>Lions can sleep up to 20 hours a day and roar that can be heard 5 miles away</p>
+                    </div>
+                </div>
+
+                <!-- Giant Panda Card -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/panda.png' %}" alt="Giant Panda">
+                        <div class="card-tag">Rare</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Giant Panda</h3>
+                        <p>Pandas spend 10-16 hours a day eating bamboo and have an extra "thumb"</p>
+                    </div>
+                </div>
+
+                <!-- Giraffe Card -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/Giraffe.png' %}" alt="Giraffe">
+                        <div class="card-tag">Family</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Giraffe</h3>
+                        <p>Giraffes only need 5-30 minutes of sleep in a 24-hour period</p>
+                    </div>
+                </div>
+
+                <!-- Gorilla Card -->
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="{% static 'images/Gorilla.png' %}" alt="Gorilla">
+                        <div class="card-tag">Intelligent</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Western Lowland Gorilla</h3>
+                        <p>Gorillas share 98.3% of their DNA with humans and live in groups called troops</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tickets Section -->
+    <section id="tickets" class="tickets-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Plan Your Visit</h2>
+                <p>Book your tickets for an unforgettable adventure</p>
+            </div>
+
+            <div class="ticket-booking">
+                <form id="ticket-booking-form" class="booking-form">
+                    <div class="form-group full-width">
+                        <label for="visit-date">Visit Date</label>
+                        <input type="date" id="visit-date" name="visit-date" required>
+                    </div>
+
+                    <div class="ticket-types">
+                        <div class="ticket-type" data-price="25">
+                            <div class="ticket-info">
+                                <h4>Adult Ticket</h4>
+                                <div class="ticket-description">Ages 13+</div>
+                                <div class="ticket-price">$25</div>
+                            </div>
+                            <div class="ticket-quantity-control">
+                                <label for="adult-tickets">Quantity</label>
+                                <input type="number" id="adult-tickets" class="ticket-quantity" min="0" value="0">
+                            </div>
+                        </div>
+
+                        <div class="ticket-type" data-price="15">
+                            <div class="ticket-info">
+                                <h4>Child Ticket</h4>
+                                <div class="ticket-description">Ages 3-12</div>
+                                <div class="ticket-price">$15</div>
+                            </div>
+                            <div class="ticket-quantity-control">
+                                <label for="child-tickets">Quantity</label>
+                                <input type="number" id="child-tickets" class="ticket-quantity" min="0" value="0">
+                            </div>
+                        </div>
+
+                        <div class="ticket-type" data-price="20">
+                            <div class="ticket-info">
+                                <h4>Senior Ticket</h4>
+                                <div class="ticket-description">Ages 65+</div>
+                                <div class="ticket-price">$20</div>
+                            </div>
+                            <div class="ticket-quantity-control">
+                                <label for="senior-tickets">Quantity</label>
+                                <input type="number" id="senior-tickets" class="ticket-quantity" min="0" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="booking-summary">
+                        <div class="total-section">
+                            Total: <span id="total-price">$0.00</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Complete Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add paw trails -->
+        <div class="paw-trail paw-trail-1">
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+        </div>
+    </section>
+
+    <!-- Events Section - Redesigned with vertical layout -->
+    <section id="events" class="events-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+                <p>Join us for special events and activities</p>
+            </div>
+
+            <div class="events-container vertical">
+                <!-- Conservation Day -->
+                <div class="event-card">
+                    <div class="event-date green-bg">
+                        <span class="event-month">MAY</span>
+                        <span class="event-day">15</span>
+                    </div>
+                    <div class="event-info">
+                        <h3>Conservation Day</h3>
+                        <p>Learn about our conservation efforts and how you can help protect wildlife.</p>
+                        <div class="event-details">
+                            <span><i class="far fa-clock"></i> 10:00 AM - 4:00 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Main Plaza</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Night Safari -->
+                <div class="event-card">
+                    <div class="event-date orange-bg">
+                        <span class="event-month">MAY</span>
+                        <span class="event-day">22</span>
+                    </div>
+                    <div class="event-info">
+                        <h3>Night Safari</h3>
+                        <p>Experience the zoo after dark and discover nocturnal animals in action.</p>
+                        <div class="event-details">
+                            <span><i class="far fa-clock"></i> 7:00 PM - 10:00 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Safari Zone</span>
+                        </div>
+                        <div class="event-tag">Special</div>
+                    </div>
+                </div>
+
+                <!-- World Environment Day -->
+                <div class="event-card">
+                    <div class="event-date green-bg">
+                        <span class="event-month">JUN</span>
+                        <span class="event-day">5</span>
+                    </div>
+                    <div class="event-info">
+                        <h3>World Environment Day</h3>
+                        <p>Special exhibits and activities celebrating biodiversity and conservation.</p>
+                        <div class="event-details">
+                            <span><i class="far fa-clock"></i> 9:00 AM - 5:00 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Throughout Zoo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Animal Spotlight -->
+                <div class="event-card">
+                    <div class="event-date orange-bg">
+                        <span class="event-month">JUN</span>
+                        <span class="event-day">15</span>
+                    </div>
+                    <div class="event-info">
+                        <h3>Animal Spotlight: Baby Elephants</h3>
+                        <p>Meet our newest elephant calves and learn about elephant conservation.</p>
+                        <div class="event-details">
+                            <span><i class="far fa-clock"></i> 11:00 AM - 3:00 PM</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Elephant Habitat</span>
+                        </div>
+                        <div class="countdown" data-date="2025-06-15T11:00:00">
+                            <div class="countdown-item">
+                                <span id="countdown-days" class="countdown-number">00</span>
+                                <span class="countdown-label">Days</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="countdown-hours" class="countdown-number">00</span>
+                                <span class="countdown-label">Hours</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="countdown-minutes" class="countdown-number">00</span>
+                                <span class="countdown-label">Mins</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span id="countdown-seconds" class="countdown-number">00</span>
+                                <span class="countdown-label">Secs</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Zoo Map</h2>
+                <p>Find your way around Mulan Zoofari</p>
+            </div>
+
+            <div class="map-container">
+                <div class="interactive-map">
+                    <div class="map-overlay"></div>
+                    <div class="map-paths"></div>
+                    <img src="{% static 'images/zoo-map.png' %}" alt="Zoo Map" class="map-image">
+
+                    <!-- Interactive map points -->
+                    <div class="map-point" style="top: 15%; left: 50%;">
+                        <div class="map-point-icon"><i class="fas fa-door-open"></i></div>
+                        <div class="map-tooltip">
+                            <h4>Main Entrance</h4>
+                            <p>Welcome center, tickets and information</p>
+                        </div>
+                    </div>
+
+                    <div class="map-point" style="top: 40%; left: 25%;">
+                        <div class="map-point-icon"><i class="fas fa-car-side"></i></div>
+                        <div class="map-tooltip">
+                            <h4>Safari Zone</h4>
+                            <p>Experience our guided safari tours</p>
+                        </div>
+                    </div>
+
+                    <div class="map-point" style="top: 60%; left: 70%;">
+                        <div class="map-point-icon"><i class="fas fa-fish"></i></div>
+                        <div class="map-tooltip">
+                            <h4>Aquatic World</h4>
+                            <p>Discover amazing underwater creatures</p>
+                        </div>
+                    </div>
+
+                    <div class="map-point" style="top: 30%; left: 80%;">
+                        <div class="map-point-icon"><i class="fas fa-utensils"></i></div>
+                        <div class="map-tooltip">
+                            <h4>Jungle Cafe</h4>
+                            <p>Food and refreshments</p>
+                        </div>
+                    </div>
+
+                    <div class="map-point" style="top: 75%; left: 40%;">
+                        <div class="map-point-icon"><i class="fas fa-child"></i></div>
+                        <div class="map-tooltip">
+                            <h4>Kids Adventure Zone</h4>
+                            <p>Fun activities for children</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add paw trails -->
+        <div class="paw-trail paw-trail-1">
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+            <div class="paw-print"></div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated</h2>
+                <p>Subscribe to our newsletter for latest news and special offers</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer with parrot green background -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Address column without logo -->
+                <div class="footer-column">
+                    <address>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Zoo Avenue, Wildlife City, WL 12345</p>
+                        <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                        <p><i class="fas fa-envelope"></i> info@mulanzoofari.com</p>
+                    </address>
+                </div>
+
+                <!-- Zoo Hours section -->
+                <div class="zoo-hours">
+                    <h3>Zoo Hours</h3>
+                    <div class="hours-list">
+                        <div class="hours-item">
+                            <span class="day">Monday - Friday:</span>
+                            <span class="time">9:00 AM - 5:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Saturday - Sunday:</span>
+                            <span class="time">8:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Holidays:</span>
+                            <span class="time">8:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="hours-item special-note">
+                            <span class="note"><i class="fas fa-info-circle"></i> Last entry 1 hour before
+                                closing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Updated footer bottom with styled copyright text -->
+            <div class="footer-bottom">
+                <p class="copyright-text">
+                    <span class="copyright-symbol">&copy;</span>
+                    <span class="year">2025</span>
+                    <span class="separator">|</span>
+                    <span class="company-name">Mulan Zoofari</span>
+                    <span class="separator">|</span>
+                    <span class="rights">All rights reserved</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+
+    <script>
+        window.STATIC_URLS = {
+            imageBase: "{% static 'images/' %}"
+        };
+    </script>
+    <script src="{% static 'visitor.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!-- filepath: c:\Users\Lenovo\Desktop\python\zoo_management\api\templates\landing.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Mulan Zoofari</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+</head>
+<body>
+  <!-- Animated Background Elements -->
+  <div class="background-elements">
+    <div class="clouds">
+      <div class="cloud cloud1"></div>
+      <div class="cloud cloud2"></div>
+      <div class="cloud cloud3"></div>
+    </div>
+    <div class="animals">
+      <div class="animal animal-elephant"></div>
+      <div class="animal animal-giraffe"></div>
+      <div class="animal animal-monkey"></div>
+    </div>
+    <div class="trees">
+      <div class="tree tree1"></div>
+      <div class="tree tree2"></div>
+      <div class="tree tree3"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <!-- Make sure your HTML has this structure -->
+<div class="main-container">
+  <div class="welcome-card">
+    <div class="sparkle-overlay"></div>
+    
+    <div class="logo-container">
+      <img src="{% static 'images/Mulan Zoofari-Picsart-BackgroundRemover.png' %}" alt="Mulan Zoofari Logo" class="logo">
+    </div>
+    
+    <h1 class="welcome-title">Welcome to Mulan Zoofari</h1>
+    <p class="welcome-subtitle">Experience the wonders of wildlife</p>
+    
+    <div class="user-selection">
+      <h2>I am a...</h2>
+      
+      <!-- This section is crucial - it contains the cards that are disappearing -->
+      <div class="selection-cards">
+        <div class="selection-card visitor-card" id="visitor-card">
+          <div class="sparkle-overlay card-sparkle"></div>
+          <div class="icon-container">
+            <i class="fas fa-ticket-alt"></i>
+          </div>
+          <h3>Visitor</h3>
+          <p>Book tickets, explore animals, and view events</p>
+          <div class="card-hover-effect"></div>
+        </div>
+        
+        <div class="selection-card caretaker-card" id="caretaker-card">
+          <div class="sparkle-overlay card-sparkle"></div>
+          <div class="icon-container">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h3>Caretaker</h3>
+          <p>Log in to access animal care tasks and scheduling</p>
+          <div class="card-hover-effect"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="{% static 'landing.js' %}"></script>
+</body>
+</html>
