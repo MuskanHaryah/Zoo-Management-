@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
-import cloudinary_storage
-from pathlib import Path
+from decouple import config, Csv
+import dj_database_url
 import cloudinary
 import cloudinary_storage
 
@@ -24,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-lj+h1s3!%6x778r2rj84-t%!=!(qlmp0e$(j*pvu%j-p1veq*^'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-lj+h1s3!%6x778r2rj84-t%!=!(qlmp0e$(j*pvu%j-p1veq*^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
 
 
 # Application definition
@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -70,7 +71,9 @@ ROOT_URLCONF = 'zoo_management.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'api', 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'frontend', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,19 +92,27 @@ WSGI_APPLICATION = 'zoo_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'zoo_management',           # Your PostgreSQL database name
-        'USER': 'zoo_admin',                # Your PostgreSQL username
-        'PASSWORD': 'admin123', # The password you set for the user
-        'HOST': 'localhost',                # If it's a local server
-        'PORT': '5433',                     # Default PostgreSQL port
+# Check if DATABASE_URL is set (for production)
+if config('DATABASE_URL', default=None):
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
-
-
-
+else:
+    # Local development database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME', default='zoo_management'),
+            'USER': config('DB_USER', default='zoo_admin'),
+            'PASSWORD': config('DB_PASSWORD', default='admin123'),
+            'HOST': config('DB_HOST', default='localhost'),
+            'PORT': config('DB_PORT', default='5433'),
+        }
+    }
 
 
 # Password validation
@@ -138,48 +149,51 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'api', 'static')
-]
-
-# Add this near the other static file settings
-import os
-
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'api/static'),
+    os.path.join(BASE_DIR, 'frontend', 'static'),
 ]
+
+# WhiteNoise configuration for static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': 'de5lczj5m',
-#     'API_KEY': '278'
-#     '412289314687',
-#     'API_SECRET': '_YalQ6iIOCghgiICHS78jKU7B6c'
-# }
-
+# Cloudinary Configuration
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'de5lczj5m',
-    'API_KEY': '278412289314687',
-    'API_SECRET': '_YalQ6iIOCghgiICHS78jKU7B6c',
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default='de5lczj5m'),
+    'API_KEY': config('CLOUDINARY_API_KEY', default='278412289314687'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default='_YalQ6iIOCghgiICHS78jKU7B6c'),
 }
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-
-LOGIN_REDIRECT_URL = '/caretaker/profile/'
-LOGOUT_REDIRECT_URL = '/caretaker/login/'  # optional
-
-
 cloudinary.config(
-    cloud_name="de5lczj5m",
-    api_key="278412289314687",
-    api_secret="_YalQ6iIOCghgiICHS78jKU7B6c"
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET']
 )
-# print(CLOUDINARY_STORAGE)
+
+# Authentication
+LOGIN_REDIRECT_URL = '/caretaker/profile/'
+LOGOUT_REDIRECT_URL = '/caretaker/login/'
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    default='http://localhost:3000,http://127.0.0.1:3000',
+    cast=Csv()
+)
+
+# Security settings for production
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
