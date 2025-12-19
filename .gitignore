@@ -1,0 +1,49 @@
+# Python
+*.py[cod]
+*$py.class
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.Python
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+/staticfiles/
+/media/
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Archive and backups
+Archive/
+__MACOSX/
+
+# Database
+*.db
+*.sqlite3
+
+# Secret keys
+secret.txt
