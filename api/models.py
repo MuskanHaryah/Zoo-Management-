@@ -93,6 +93,14 @@ class Task(models.Model):
     submission_date = models.DateTimeField(null=True, blank=True)  # Changed to DateTimeField
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['status', 'deadline']),
+            models.Index(fields=['caretaker', 'status']),
+            models.Index(fields=['-date_assigned']),
+        ]
+        ordering = ['-date_assigned']
+
     def __str__(self):
         return f"Task for {self.animal.name} by {self.caretaker.user.username}"
     

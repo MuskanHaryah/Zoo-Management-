@@ -9,8 +9,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+  <link rel="stylesheet" href="{% static 'css/scroll-indicator.css' %}">
 </head>
 <body>
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator" id="scrollIndicator">
+    <div class="scroll-text">Scroll Down</div>
+    <div class="scroll-arrow">
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </div>
+
   <!-- Animated Background Elements -->
   <div class="background-elements">
     <div class="clouds">
@@ -31,7 +40,6 @@
   </div>
 
   <!-- Main Content -->
-  <!-- Make sure your HTML has this structure -->
 <div class="main-container">
   <div class="welcome-card">
     <div class="sparkle-overlay"></div>
@@ -40,21 +48,79 @@
       <img src="{% static 'images/Mulan Zoofari-Picsart-BackgroundRemover.png' %}" alt="Mulan Zoofari Logo" class="logo">
     </div>
     
-    <h1 class="welcome-title">Welcome to Mulan Zoofari</h1>
-    <p class="welcome-subtitle">Experience the wonders of wildlife</p>
+    <h1 class="welcome-title">Mulan Zoofari Management System</h1>
+    <p class="welcome-subtitle">Comprehensive Wildlife Care & Visitor Management Platform</p>
+    
+    <!-- Project Description -->
+    <div class="project-description">
+      <div class="description-content">
+        <p class="description-text">
+          A full-stack Django web application designed to streamline zoo operations, manage animal care tasks, 
+          and enhance visitor experiences. Built with modern web technologies including Django 6.0, PostgreSQL, 
+          Cloudinary for media management, and RESTful API architecture.
+        </p>
+      </div>
+      
+      <!-- Key Features -->
+      <div class="features-grid">
+        <div class="feature-item">
+          <i class="fas fa-tasks"></i>
+          <span>Task Management</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-paw"></i>
+          <span>Animal Care Tracking</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-clock"></i>
+          <span>Real-time Deadlines</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-database"></i>
+          <span>Optimized Queries</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Demo Login Section -->
+    <div class="demo-login-section">
+      <div class="demo-header">
+        <i class="fas fa-key"></i>
+        <h3>Demo Login Credentials</h3>
+      </div>
+      <div class="demo-credentials">
+        <div class="credential-item">
+          <span class="label">Username:</span>
+          <span class="value" id="demo-username">jack_caretaker</span>
+          <button class="copy-btn" onclick="copyToClipboard('jack_caretaker', this)">
+            <i class="fas fa-copy"></i>
+          </button>
+        </div>
+        <div class="credential-item">
+          <span class="label">Password:</span>
+          <span class="value" id="demo-password">zoo12345</span>
+          <button class="copy-btn" onclick="copyToClipboard('zoo12345', this)">
+            <i class="fas fa-copy"></i>
+          </button>
+        </div>
+      </div>
+      <p class="demo-note">
+        <i class="fas fa-info-circle"></i> 
+        Click any credential to copy. Use these to explore the caretaker dashboard and task management features.
+      </p>
+    </div>
     
     <div class="user-selection">
-      <h2>I am a...</h2>
+      <h2>Choose Your Portal</h2>
       
-      <!-- This section is crucial - it contains the cards that are disappearing -->
       <div class="selection-cards">
         <div class="selection-card visitor-card" id="visitor-card">
           <div class="sparkle-overlay card-sparkle"></div>
           <div class="icon-container">
             <i class="fas fa-ticket-alt"></i>
           </div>
-          <h3>Visitor</h3>
-          <p>Book tickets, explore animals, and view events</p>
+          <h3>Visitor Portal</h3>
+          <p>Explore animals, view zoo map, and discover wildlife events</p>
           <div class="card-hover-effect"></div>
         </div>
         
@@ -63,15 +129,24 @@
           <div class="icon-container">
             <i class="fas fa-user-md"></i>
           </div>
-          <h3>Caretaker</h3>
-          <p>Log in to access animal care tasks and scheduling</p>
+          <h3>Caretaker Login</h3>
+          <p>Access animal care tasks, deadlines, and management dashboard</p>
           <div class="card-hover-effect"></div>
         </div>
       </div>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="project-footer">
+      <p>
+        <i class="fas fa-graduation-cap"></i> 
+        University Project | Built with Django, PostgreSQL, REST Framework & Cloudinary
+      </p>
     </div>
   </div>
 </div>
 
   <script src="{% static 'landing.js' %}"></script>
+  <script src="{% static 'scroll-indicator.js' %}"></script>
 </body>
 </html>

@@ -9,21 +9,39 @@ import json
 @login_required(login_url='/caretaker/login/')
 def caretaker_profile(request):
     try:
-        caretaker = CaretakerProfile.objects.get(user=request.user)
-        # Get all tasks for this caretaker
-        tasks = Task.objects.filter(caretaker=caretaker)
+        caretaker = CaretakerProfile.objects.select_related('user').get(user=request.user)
         
-        # Check for tasks with passed deadlines and update their status
-        for task in tasks:
-            # Use the model method to check and update status
-            if task.check_and_update_expired_status():
-                print(f"Task {task.id} with deadline {task.deadline} was automatically rejected")
+        # Optimize query with select_related to prevent N+1 queries
+        tasks = Task.objects.filter(caretaker=caretaker).select_related('animal', 'caretaker__user')
         
-        # Refresh the task list after potential updates
-        tasks = Task.objects.filter(caretaker=caretaker)
+        # Update expired tasks in bulk (more efficient)
+        from django.utils import timezone
+        now = timezone.now()
+        Task.objects.filter(
+            caretaker=caretaker,
+            status='pending',
+            deadline__lt=now,
+            deadline__isnull=False
+        ).update(status='rejected')
+        
+        # Refresh the task list after updates
+        tasks = Task.objects.filter(caretaker=caretaker).select_related('animal', 'caretaker__user')
+        
         return render(request, 'caretaker/profile.html', {'tasks': tasks})
     except CaretakerProfile.DoesNotExist:
-        return redirect('caretaker_login')  # or show error
+        # User is logged in but doesn't have a caretaker profile
+        from django.contrib import messages
+        messages.error(request, 'Your account is not associated with a caretaker profile. Please contact the administrator.')
+        return redirect('caretaker_login')
+    except Exception as e:
+        # Log the error for debugging
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error in caretaker_profile: {str(e)}")
+        # Show user-friendly error message
+        from django.contrib import messages
+        messages.error(request, 'An unexpected error occurred. Please try again or contact support.')
+        return redirect('landing_page')
 
 @login_required(login_url='/caretaker/login/')
 @require_POST
@@ -32,29 +50,49 @@ def caretaker_profile(request):
 @require_POST
 def complete_task(request, task_id):
     try:
-        # Get the task and verify it belongs to the current caretaker
-        caretaker = CaretakerProfile.objects.get(user=request.user)
-        task = get_object_or_404(Task, id=task_id, caretaker=caretaker)
+        # Get the task and verify it belongs to the current caretaker (optimized query)
+        caretaker = CaretakerProfile.objects.select_related('user').get(user=request.user)
+        task = get_object_or_404(
+            Task.objects.select_related('animal', 'caretaker'),
+            id=task_id, 
+            caretaker=caretaker
+        )
         
         # Update task status and submission date - use full datetime
         task.status = 'completed'
         task.submission_date = timezone.now()  # Use full datetime not just date
-        task.save()
+        task.save(update_fields=['status', 'submission_date'])
         
-        return JsonResponse({'success': True, 'message': 'Task marked as completed'})
+        return JsonResponse({
+            'success': True, 
+            'message': f'Task for {task.animal.name} marked as completed successfully!'
+        })
     except CaretakerProfile.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Caretaker profile not found'}, status=403)
-    except Task.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'Task not found'}, status=404)
+        return JsonResponse({
+            'success': False, 
+            'message': 'Your caretaker profile was not found. Please contact the administrator.'
+        }, status=403)
     except Exception as e:
-        return JsonResponse({'success': False, 'message': str(e)}, status=500)
+        # Log the error
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error completing task {task_id}: {str(e)}")
+        
+        return JsonResponse({
+            'success': False, 
+            'message': 'Unable to complete the task. Please try again or contact support if the problem persists.'
+        }, status=500)
 
 @login_required(login_url='/caretaker/login/')
 def task_detail(request, task_id):
     """API endpoint to get task details"""
     try:
-        caretaker = CaretakerProfile.objects.get(user=request.user)
-        task = get_object_or_404(Task, id=task_id, caretaker=caretaker)
+        caretaker = CaretakerProfile.objects.select_related('user').get(user=request.user)
+        task = get_object_or_404(
+            Task.objects.select_related('animal', 'caretaker'),
+            id=task_id, 
+            caretaker=caretaker
+        )
         
         # Handle deadline - if it's None, explicitly set to None for JSON
         deadline = task.deadline.isoformat() if task.deadline else None
@@ -81,8 +119,8 @@ def task_detail(request, task_id):
 def rejected_tasks(request):
     """API endpoint to get all rejected tasks for the current caretaker"""
     try:
-        caretaker = CaretakerProfile.objects.get(user=request.user)
-        tasks = Task.objects.filter(caretaker=caretaker, status='rejected')
+        caretaker = CaretakerProfile.objects.select_related('user').get(user=request.user)
+        tasks = Task.objects.filter(caretaker=caretaker, status='rejected').select_related('animal', 'caretaker')
         
         # Prepare JSON response with task data
         tasks_data = []
@@ -107,45 +145,7 @@ def rejected_tasks(request):
         return JsonResponse({'error': str(e)}, status=500)
     
 
-@login_required
-def complete_task(request, task_id):
-    if request.method == 'POST':
-        task = get_object_or_404(Task, id=task_id)
-        
-        # Find the caretaker profile associated with the current user
-        try:
-            caretaker_profile = CaretakerProfile.objects.get(user=request.user)
-            
-            # Check if this task belongs to the current caretaker
-            if task.caretaker == caretaker_profile:
-                try:
-                    # Parse request data
-                    data = json.loads(request.body.decode('utf-8'))
-                    submission_date = data.get('submission_date')
-                    
-                    # Update task status - use lowercase to match STATUS_CHOICES in model
-                    task.status = 'completed'
-                    
-                    # Save submission date
-                    if submission_date:
-                        from django.utils.dateparse import parse_datetime
-                        task.submission_date = parse_datetime(submission_date)
-                    else:
-                        from django.utils import timezone
-                        task.submission_date = timezone.now()
-                        
-                    task.save()
-                    
-                    return JsonResponse({'status': 'success'})
-                except Exception as e:
-                    return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
-            else:
-                return JsonResponse({'status': 'error', 'message': 'Unauthorized'}, status=403)
-                
-        except CaretakerProfile.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'User is not a caretaker'}, status=403)
-    
-    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=400)
+# Duplicate complete_task function removed - using the one above with @require_POST decorator
 
 
 def landing_page(request):

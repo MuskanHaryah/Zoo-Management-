@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-lj+h1s3!%6x778r2rj84-t%!=!(qlmp0e$(j*pvu%j-p1veq*^')
+SECRET_KEY = config('SECRET_KEY')  # No default - MUST be set in .env file
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
@@ -54,6 +54,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'django.middleware.gzip.GZipMiddleware',  # Add GZip compression first
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise
@@ -118,6 +119,18 @@ else:
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
+# Caching Configuration
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'zoo-management-cache',
+        'TIMEOUT': 300,  # 5 minutes default timeout
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000
+        }
+    }
+}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -165,9 +178,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Cloudinary Configuration
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default='de5lczj5m'),
-    'API_KEY': config('CLOUDINARY_API_KEY', default='278412289314687'),
-    'API_SECRET': config('CLOUDINARY_API_SECRET', default='_YalQ6iIOCghgiICHS78jKU7B6c'),
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),  # Required in .env
+    'API_KEY': config('CLOUDINARY_API_KEY'),  # Required in .env
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),  # Required in .env
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -190,10 +203,18 @@ CORS_ALLOWED_ORIGINS = config(
 )
 
 # Security settings for production
-if not DEBUG:
+# Only enable SSL redirect if we're not on localhost and DEBUG is False
+ENABLE_SSL = config('ENABLE_SSL', default=False, cast=bool)
+
+if not DEBUG and ENABLE_SSL:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
