@@ -1,3 +1,37 @@
+// Copy to Clipboard Function (must be global for inline onclick)
+function copyToClipboard(text, button) {
+  navigator.clipboard.writeText(text).then(function() {
+    // Show success feedback
+    const originalHTML = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-check"></i>';
+    button.classList.add('copied');
+    
+    // Reset after 2 seconds
+    setTimeout(function() {
+      button.innerHTML = originalHTML;
+      button.classList.remove('copied');
+    }, 2000);
+  }).catch(function(err) {
+    console.error('Failed to copy:', err);
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    
+    const originalHTML = button.innerHTML;
+    button.innerHTML = '<i class="fas fa-check"></i>';
+    button.classList.add('copied');
+    
+    setTimeout(function() {
+      button.innerHTML = originalHTML;
+      button.classList.remove('copied');
+    }, 2000);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // Get the selection cards
   const visitorCard = document.getElementById('visitor-card');

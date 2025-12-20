@@ -11,6 +11,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/visitor.css' %}">
     <link rel="stylesheet" href="{% static 'css/enhanced-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/scroll-indicator.css' %}">
     <style>
         /* Override any emoji styles to ensure they don't appear in the welcome background */
         .hero {
@@ -33,6 +34,14 @@
 </head>
 
 <body>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-text">Scroll Down</div>
+        <div class="scroll-arrow">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+
     <!-- Background elements -->
     <div class="background-elements">
         <!-- Animal silhouettes -->
@@ -538,6 +547,7 @@
     </footer>
 
     <!-- Back to Top Button -->
+    <script src="{% static 'scroll-indicator.js' %}"></script>
     <button id="back-to-top" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
 
     <script>

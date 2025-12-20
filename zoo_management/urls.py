@@ -19,3 +19,8 @@ urlpatterns = [
     # Include API URLs
     path('', include('api.urls')),
 ]
+
+# Custom error handlers
+handler403 = 'zoo_management.views.custom_403'
+handler404 = 'zoo_management.views.custom_404'
+handler500 = 'zoo_management.views.custom_500'
