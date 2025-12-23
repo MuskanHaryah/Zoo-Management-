@@ -129,3 +129,22 @@
     font-size: 1rem;
   }
 }
+
+/* Light theme for visitor page */
+.scroll-indicator-light .scroll-text {
+  color: rgba(255, 255, 255, 0.95) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-indicator-light .scroll-arrow {
+  border-color: rgba(255, 255, 255, 0.9) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.scroll-indicator-light:hover .scroll-arrow {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+.scroll-indicator-light .scroll-arrow i {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
