@@ -20,11 +20,11 @@
 }
 
 .scroll-text {
-  color: rgba(255, 255, 255, 0.95);
+  color: #1a5f3f;
   font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 8px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.3);
   letter-spacing: 1px;
 }
 
@@ -32,12 +32,12 @@
   width: 45px;
   height: 45px;
   margin: 0 auto;
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  border: 2px solid #1a5f3f;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(26, 95, 63, 0.1);
   backdrop-filter: blur(10px);
   animation: bounce 2s infinite;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -45,13 +45,13 @@
 }
 
 .scroll-indicator:hover .scroll-arrow {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(26, 95, 63, 0.2);
   transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .scroll-arrow i {
-  color: rgba(255, 255, 255, 0.95);
+  color: #1a5f3f;
   font-size: 1.3rem;
   animation: arrowPulse 2s infinite;
 }
