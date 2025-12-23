@@ -11,3 +11,6 @@ python manage.py collectstatic --no-input --clear
 
 # Run migrations
 python manage.py migrate --noinput
+
+# Create caretaker user
+python manage.py create_caretaker_user
