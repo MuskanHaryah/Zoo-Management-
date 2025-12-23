@@ -89,6 +89,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'zoo_management.wsgi.application'
 
+# CSRF Settings
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-b533d.up.railway.app',
+    'https://*.railway.app',
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
